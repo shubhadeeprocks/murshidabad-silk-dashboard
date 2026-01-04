@@ -5,107 +5,59 @@
 <title>Murshidabad Silk – District MIS Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-/* =====================
-   GLOBAL DESIGN
-===================== */
 body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
   background: #f4f7fb;
-  color: #222;
+  font-family: "Segoe UI", sans-serif;
 }
 
-header {
-  background: #0b5ed7;
+/* HEADER */
+.hero {
+  background: linear-gradient(120deg,#0d6efd,#6610f2);
   color: #fff;
-  padding: 20px;
+  padding: 30px;
+  border-radius: 0 0 30px 30px;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 1.6rem;
-}
-
-header small {
-  opacity: 0.9;
-}
-
-.container {
-  padding: 20px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-/* =====================
-   KPI CARDS
-===================== */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
+/* KPI CARDS */
+.kpi-card {
+  border-radius: 16px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.12);
 }
-
-.card h3 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.card .value {
+.kpi-value {
   font-size: 2rem;
   font-weight: 700;
-  margin: 6px 0;
 }
 
-.card small {
-  color: #666;
-}
-
-/* =====================
-   SECTIONS
-===================== */
-.section {
+/* SECTION DETAILS */
+.detail-section {
   display: none;
-  margin-top: 25px;
-  background: #fff;
-  padding: 18px;
-  border-radius: 12px;
-  animation: fade 0.3s ease;
+  animation: fade 0.4s ease;
 }
-
 @keyframes fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
 }
 
-.section h4 {
-  margin-top: 0;
+/* IMAGE STYLE */
+.section-img {
+  border-radius: 14px;
+  max-height: 220px;
+  object-fit: cover;
 }
 
-/* =====================
-   CHART AREA
-===================== */
-.chart-box {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 20px;
-}
+/* FOOTER */
 .footer-note {
-  margin-top: 30px;
   font-size: 0.85rem;
   color: #555;
 }
@@ -114,171 +66,206 @@ header small {
 
 <body>
 
-<header>
-  <h1>Murshidabad Silk Industry – District MIS Dashboard</h1>
-  <small>
-    Prepared by <strong>Shubhadeep Nandy</strong> |
-    PGDM (RBA) | Roll No: 52
-  </small>
-</header>
+<!-- ================= HEADER ================= -->
+<div class="container-fluid hero mb-4">
+  <div class="row align-items-center">
+    <div class="col-md-8">
+      <h2>🧵 Murshidabad Silk Industry – District MIS Dashboard</h2>
+      <p class="mb-0">
+        Evidence-based Monitoring for Industrial Policy Implementation
+      </p>
+    </div>
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+      <strong>Shubhadeep Nandy</strong><br>
+      PGDM – RBA | Roll No: 52
+    </div>
+  </div>
+</div>
 
 <div class="container">
 
-<!-- =====================
-     KPI CARDS WITH ATTRIBUTES
-===================== -->
-<div class="grid">
+<!-- ================= KPI CARDS ================= -->
+<div class="row g-4">
 
-  <div class="card"
-       data-section="production"
-       data-indicator="Production Efficiency"
-       data-policy="Silk Samagra"
-       data-source="District Sericulture Office">
-    <h3>Production Yield</h3>
-    <div class="value">94%</div>
-    <small>Target: 98%</small>
+  <div class="col-md-3">
+    <div class="card kpi-card text-bg-warning"
+         data-section="production">
+      <div class="card-body">
+        <h6>Production Yield</h6>
+        <div class="kpi-value">94%</div>
+        <small>Silk Samagra Target: 98%</small>
+      </div>
+    </div>
   </div>
 
-  <div class="card"
-       data-section="loom"
-       data-indicator="Loom Utilisation"
-       data-policy="Cluster Development"
-       data-source="Handloom Census">
-    <h3>Loom Utilisation</h3>
-    <div class="value">72%</div>
-    <small>Traditional + Semi-auto</small>
+  <div class="col-md-3">
+    <div class="card kpi-card text-bg-danger"
+         data-section="loom">
+      <div class="card-body">
+        <h6>Loom Utilisation</h6>
+        <div class="kpi-value">72%</div>
+        <small>Handloom Census</small>
+      </div>
+    </div>
   </div>
 
-  <div class="card"
-       data-section="credit"
-       data-indicator="Financial Inclusion"
-       data-policy="Bhabishyat Credit Card"
-       data-source="Lead Bank Report">
-    <h3>Credit Coverage</h3>
-    <div class="value">68%</div>
-    <small>Eligible vs Disbursed</small>
+  <div class="col-md-3">
+    <div class="card kpi-card text-bg-primary"
+         data-section="credit">
+      <div class="card-body">
+        <h6>Credit Coverage</h6>
+        <div class="kpi-value">68%</div>
+        <small>Bhabishyat Scheme</small>
+      </div>
+    </div>
   </div>
 
-  <div class="card"
-       data-section="export"
-       data-indicator="Market Linkage"
-       data-policy="ODOP & GI Tag"
-       data-source="Export Promotion Board">
-    <h3>Export Growth</h3>
-    <div class="value">8.2%</div>
-    <small>Projected CAGR</small>
+  <div class="col-md-3">
+    <div class="card kpi-card text-bg-success"
+         data-section="export">
+      <div class="card-body">
+        <h6>Export Growth</h6>
+        <div class="kpi-value">8.2%</div>
+        <small>Projected CAGR</small>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<!-- =====================
-     CHART
-===================== -->
-<div class="chart-box">
-  <canvas id="districtChart"></canvas>
-  <small>Click on bars to view administrative insights</small>
+<!-- ================= CHART ================= -->
+<div class="card mt-4 shadow-sm">
+  <div class="card-body">
+    <h6 class="mb-3">📊 District Performance Indicators</h6>
+    <canvas id="districtChart"></canvas>
+    <small class="text-muted">Click on chart bars to view insights</small>
+  </div>
 </div>
 
-<!-- =====================
-     DETAIL SECTIONS (FROM WORD FILE)
-===================== -->
+<!-- ================= DETAIL SECTIONS ================= -->
 
-<div id="production" class="section">
-  <h4>🏭 Production & Administrative Insight</h4>
-  <p>
-    As highlighted in the policy proposal, Murshidabad’s silk sector shows
-    high cocoon dependency but low raw silk conversion due to disease risk,
-    outdated reeling units, and fragmented value chains.
-  </p>
-  <ul>
-    <li>Need for bi-voltine seed promotion</li>
-    <li>Automatic Reeling Machines (ARM)</li>
-    <li>District-led convergence monitoring</li>
-  </ul>
+<div id="production" class="detail-section card mt-4 p-3">
+  <div class="row g-3 align-items-center">
+    <div class="col-md-4">
+      <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae"
+           class="img-fluid section-img">
+    </div>
+    <div class="col-md-8">
+      <h5>🏭 Production & Value Chain Gaps</h5>
+      <p>
+        As highlighted in the policy proposal, Murshidabad shows high cocoon
+        dependency but low raw silk conversion due to disease risk and outdated
+        reeling infrastructure.
+      </p>
+      <ul>
+        <li>Bi-voltine seed promotion</li>
+        <li>Automatic Reeling Machines (ARM)</li>
+        <li>District convergence monitoring</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div id="loom" class="section">
-  <h4>🧵 Loom Infrastructure Gap</h4>
-  <p>
-    The document identifies under-utilisation of looms caused by migration,
-    obsolete pit looms, and lack of design integration.
-  </p>
-  <ul>
-    <li>Modern loom subsidy targeting youth</li>
-    <li>Design–market linkage via clusters</li>
-    <li>Role of District Collector as coordinator</li>
-  </ul>
+<div id="loom" class="detail-section card mt-4 p-3">
+  <div class="row g-3 align-items-center">
+    <div class="col-md-4">
+      <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e"
+           class="img-fluid section-img">
+    </div>
+    <div class="col-md-8">
+      <h5>🧵 Loom Infrastructure Issues</h5>
+      <p>
+        Under-utilisation of looms is driven by migration, obsolete pit looms,
+        and weak design-market linkage.
+      </p>
+      <ul>
+        <li>Modern loom subsidies</li>
+        <li>Design & jacquard training</li>
+        <li>Cluster-based production</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div id="credit" class="section">
-  <h4>💳 Credit Delivery & Policy Execution Gap</h4>
-  <p>
-    Despite scheme availability, disbursement lags indicate administrative
-    friction between banks, cooperatives, and beneficiaries.
-  </p>
-  <ul>
-    <li>Block-level finance clinics</li>
-    <li>Real-time MIS monitoring</li>
-    <li>NPA resolution mechanisms</li>
-  </ul>
+<div id="credit" class="detail-section card mt-4 p-3">
+  <div class="row g-3 align-items-center">
+    <div class="col-md-4">
+      <img src="https://images.unsplash.com/photo-1554224154-22dec7ec8818"
+           class="img-fluid section-img">
+    </div>
+    <div class="col-md-8">
+      <h5>💳 Credit & Financial Inclusion</h5>
+      <p>
+        Despite scheme availability, credit disbursement lags due to
+        administrative and banking bottlenecks.
+      </p>
+      <ul>
+        <li>Block-level finance clinics</li>
+        <li>Real-time credit MIS</li>
+        <li>NPA resolution for cooperatives</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div id="export" class="section">
-  <h4>🌍 Market & Export Potential</h4>
-  <p>
-    The proposal positions Murshidabad silk as a heritage luxury product,
-    requiring branding, GI enforcement, and digital platforms.
-  </p>
-  <ul>
-    <li>GI Tag & Silk Mark certification</li>
-    <li>ONDC & Biswa Bangla onboarding</li>
-    <li>Export facilitation cells</li>
-  </ul>
+<div id="export" class="detail-section card mt-4 p-3">
+  <div class="row g-3 align-items-center">
+    <div class="col-md-4">
+      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38"
+           class="img-fluid section-img">
+    </div>
+    <div class="col-md-8">
+      <h5>🌍 Market & Export Strategy</h5>
+      <p>
+        The policy positions Murshidabad silk as a heritage luxury product
+        requiring branding, GI enforcement, and digital platforms.
+      </p>
+      <ul>
+        <li>GI Tag & Silk Mark</li>
+        <li>Biswa Bangla branding</li>
+        <li>ONDC & e-commerce onboarding</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div class="footer-note">
-  *This dashboard simulates a District-level MIS supporting the District
-  Collector in evidence-based policy execution and monitoring.*
+<div class="footer-note mt-4 text-center">
+  *This dashboard simulates a District-level MIS supporting evidence-based
+  decision-making by the District Administration.*
 </div>
 
 </div>
 
 <script>
-/* =====================
-   INTERACTIVITY USING ATTRIBUTES
-===================== */
-const cards = document.querySelectorAll('.card');
-const sections = document.querySelectorAll('.section');
+/* KPI & SECTION INTERACTION */
+const cards = document.querySelectorAll('.kpi-card');
+const sections = document.querySelectorAll('.detail-section');
 
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const target = card.getAttribute('data-section');
     sections.forEach(sec => sec.style.display = 'none');
     document.getElementById(target).style.display = 'block';
-    window.scrollTo({ top: document.getElementById(target).offsetTop - 20, behavior: 'smooth' });
+    window.scrollTo({ top: document.getElementById(target).offsetTop - 30, behavior: 'smooth' });
   });
 });
 
-/* =====================
-   CHART WITH CLICK LINK
-===================== */
+/* CHART */
 const chart = new Chart(document.getElementById('districtChart'), {
   type: 'bar',
   data: {
     labels: ['Production', 'Looms', 'Credit', 'Export'],
     datasets: [{
-      label: 'District Performance Indicators',
+      label: 'Performance (%)',
       data: [94, 72, 68, 8.2]
     }]
   },
   options: {
-    onClick: (evt, elements) => {
-      if (elements.length > 0) {
-        const index = elements[0].index;
+    onClick: (e, el) => {
+      if (el.length > 0) {
         const ids = ['production','loom','credit','export'];
         sections.forEach(sec => sec.style.display='none');
-        document.getElementById(ids[index]).style.display = 'block';
-        window.scrollTo({ top: document.getElementById(ids[index]).offsetTop - 20, behavior: 'smooth' });
+        document.getElementById(ids[el[0].index]).style.display='block';
       }
     }
   }
