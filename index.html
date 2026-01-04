@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Murshidabad Silk – District MIS Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body { background:#f2f4f8; }
+.card { border-radius:12px; }
+.kpi-value { font-size:2rem; font-weight:700; }
+.comment {
+  font-size:0.85rem;
+  background:#f8f9fa;
+  padding:8px;
+  border-left:4px solid #0d6efd;
+  margin-top:6px;
+}
+.section-title {
+  font-weight:700;
+  margin-top:30px;
+}
+.alert-flag {
+  font-size:0.85rem;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+<div class="container-fluid p-4">
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div>
+    <h2>🧵 Murshidabad Silk Industry – District Integrated MIS</h2>
+    <p class="text-muted mb-0">
+      Collector’s Smart Governance Dashboard | ODOP • MSME • Handloom • Sericulture
+    </p>
+  </div>
+
+  <div class="text-end">
+    <div style="font-weight:600;">Shubhadeep Nandy</div>
+    <div style="font-size:0.9rem;">PGDM – RBA</div>
+    <div style="font-size:0.9rem;">Roll No: 52</div>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>District Status</h6>
+      <ul class="mb-0">
+        <li>2nd largest silk producer in WB</li>
+        <li>~3,495 acres under sericulture</li>
+        <li>~1.2 lakh livelihoods dependent</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>Strategic Alerts</h6>
+      <span class="badge bg-danger">Low Loom Utilization</span>
+      <span class="badge bg-warning text-dark">Credit Gap</span>
+      <span class="badge bg-success">Export Potential High</span>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>Administrative Focus</h6>
+      <p class="mb-0">
+        Shift from fragmented reporting to
+        <b>real-time, block-wise decision making</b>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- KPI SECTION -->
+<h5 class="section-title">📊 Core Performance Indicators</h5>
+<div class="row g-3">
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div>Production Yield</div>
+      <div class="kpi-value text-warning">94%</div>
+      <small>Target: 98%</small>
+      <div class="comment">
+        ⚠ Indicates disease impact & suboptimal DFL efficiency.
+        Requires CSRTI intervention.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div>Loom Utilization</div>
+      <div class="kpi-value text-danger">72%</div>
+      <small>Target: 80%</small>
+      <div class="comment">
+        Major youth exit & outdated pit looms.
+        Modern loom grants required.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div>Renditta</div>
+      <div class="kpi-value text-danger">9.5</div>
+      <small>Benchmark: &lt; 9.0</small>
+      <div class="comment">
+        High cocoon consumption → low reeling efficiency.
+        ARM deployment needed.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div>Artisan Retention</div>
+      <div class="kpi-value text-warning">89%</div>
+      <small>Target: 95%</small>
+      <div class="comment">
+        Migration to NCR & South India due to income instability.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTS -->
+<h5 class="section-title">🏭 Production & Credit Analysis</h5>
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <canvas id="productionChart"></canvas>
+      <div class="comment">
+        Value loss observed between cocoon output and raw silk yield.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-3">
+      <canvas id="creditChart"></canvas>
+      <div class="comment">
+        Gap between sanction & disbursement highlights banking delays.
+      </div>
+    </div>
+  </div>
+</div>
+
+<h5 class="section-title">🌍 Market & Export Intelligence</h5>
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <canvas id="exportChart"></canvas>
+      <div class="comment">
+        GI tagging & Biswa Bangla branding can accelerate growth.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-3">
+      <canvas id="valueChainChart"></canvas>
+      <div class="comment">
+        Weaving & pre-cocoon stages show maximum stress.
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+new Chart(productionChart, {
+  type: 'bar',
+  data: {
+    labels: ['DFLs', 'Cocoons (kg)', 'Raw Silk (kg)'],
+    datasets: [{
+      label: 'Production Flow',
+      data: [100, 40, 4.2]
+    }]
+  }
+});
+
+new Chart(creditChart, {
+  type: 'bar',
+  data: {
+    labels: ['Applied', 'Sanctioned', 'Disbursed'],
+    datasets: [{
+      label: 'Bhabishyat Credit Cards',
+      data: [10000, 7200, 6800]
+    }]
+  }
+});
+
+new Chart(exportChart, {
+  type: 'line',
+  data: {
+    labels: ['2021', '2022', '2023', '2024', '2025'],
+    datasets: [{
+      label: 'Export Growth %',
+      data: [3.2, 4.1, 5.5, 6.8, 8.2],
+      borderWidth: 2
+    }]
+  }
+});
+
+new Chart(valueChainChart, {
+  type: 'pie',
+  data: {
+    labels: ['Pre-Cocoon', 'Reeling', 'Weaving', 'Processing', 'Marketing'],
+    datasets: [{
+      data: [25, 20, 30, 15, 10]
+    }]
+  }
+});
+</script>
+
+</body>
+</html>
+
