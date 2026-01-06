@@ -1,235 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Murshidabad Silk – Integrated MIS Dashboard</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Murshidabad Silk Industry – District MIS Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
-body {
-  background:#f4f7fb;
-  font-family:"Segoe UI",sans-serif;
-}
-.hero {
-  background:linear-gradient(120deg,#0d6efd,#6610f2);
-  color:#fff;
-  padding:30px;
-  border-radius:0 0 30px 30px;
-}
-.kpi-card {
-  border-radius:16px;
-  cursor:pointer;
-  transition:0.2s;
-}
-.kpi-card:hover {
-  transform:translateY(-5px);
-  box-shadow:0 12px 25px rgba(0,0,0,0.15);
-}
-.kpi-value {
-  font-size:2rem;
-  font-weight:700;
-}
-.detail-section {
-  display:none;
-}
-.section-img {
-  border-radius:14px;
-  max-height:200px;
-  object-fit:cover;
-}
-.heatmap {
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:6px;
-}
-.heat {
-  padding:12px;
-  color:#fff;
-  font-size:0.8rem;
-  text-align:center;
-  border-radius:8px;
-}
-.low { background:#ffc107; color:#000; }
-.medium { background:#fd7e14; }
-.high { background:#dc3545; }
-svg rect { cursor:pointer; }
-</style>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background: #f4f7fb;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .kpi {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .chart-box {
+      cursor: pointer;
+    }
+    footer {
+      background: #0d6efd;
+      color: #fff;
+      padding: 12px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div class="container-fluid hero mb-4">
-  <div class="row align-items-center">
-    <div class="col-md-8">
-      <h2>🧵 Murshidabad Silk Industry – Integrated MIS Dashboard</h2>
-      <p class="mb-0">District-Level Policy Monitoring & Analytics</p>
-    </div>
-    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-      <strong>Shubhadeep Nandy</strong><br>
-      PGDM – RBA | Roll No: 52
-    </div>
+<!-- ================= HEADER ================= -->
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">
+      🧵 Murshidabad Silk Industry – District MIS Dashboard
+    </span>
   </div>
-</div>
+</nav>
 
-<div class="container">
+<div class="container mt-4">
 
-<!-- SEARCH -->
-<div class="d-flex justify-content-end mb-3">
-  <input type="text" id="searchBox" class="form-control w-25"
-         placeholder="Search indicator">
-</div>
-
-<!-- KPI CARDS -->
-<div class="row g-4" id="kpiContainer">
-
-  <div class="col-md-3 kpi-item" data-name="Production">
-    <div class="card kpi-card text-bg-warning p-3" data-section="production">
-      <h6>Production Yield</h6>
-      <div class="kpi-value">94%</div>
-      <small>Silk Samagra</small>
-    </div>
+  <!-- ================= STUDENT INFO ================= -->
+  <div class="card p-3 mb-4">
+    <h5>📘 Project Details</h5>
+    <p class="mb-1"><strong>Name:</strong> Shubhadeep Nandy</p>
+    <p class="mb-1"><strong>Department:</strong> PGDM – RBA</p>
+    <p class="mb-1"><strong>Roll No:</strong> 52</p>
   </div>
 
-  <div class="col-md-3 kpi-item" data-name="Loom">
-    <div class="card kpi-card text-bg-danger p-3" data-section="loom">
-      <h6>Loom Utilisation</h6>
-      <div class="kpi-value">72%</div>
-      <small>Handloom Census</small>
+  <!-- ================= KPI ROW ================= -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="kpi text-primary">1.5 Lakh+</div>
+        <p class="mb-0">Handloom Workers</p>
+      </div>
     </div>
-  </div>
-
-  <div class="col-md-3 kpi-item" data-name="Credit">
-    <div class="card kpi-card text-bg-primary p-3" data-section="credit">
-      <h6>Credit Coverage</h6>
-      <div class="kpi-value">68%</div>
-      <small>Bhabishyat Scheme</small>
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="kpi text-success">28,000</div>
+        <p class="mb-0">Active Looms</p>
+      </div>
     </div>
-  </div>
-
-  <div class="col-md-3 kpi-item" data-name="Export">
-    <div class="card kpi-card text-bg-success p-3" data-section="export">
-      <h6>Export Growth</h6>
-      <div class="kpi-value">8.2%</div>
-      <small>ODOP / GI</small>
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="kpi text-warning">₹850 Cr</div>
+        <p class="mb-0">Annual Production</p>
+      </div>
     </div>
-  </div>
-
-</div>
-
-<!-- CHARTS -->
-<div class="row mt-4 g-4">
-  <div class="col-md-6">
-    <div class="card p-3">
-      <h6>📊 Performance Comparison</h6>
-      <canvas id="barChart"></canvas>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card p-3">
-      <h6>🥧 Scheme-wise Distribution</h6>
-      <canvas id="pieChart"></canvas>
-    </div>
-  </div>
-</div>
-
-<div class="row mt-4 g-4">
-  <div class="col-md-6">
-    <div class="card p-3">
-      <h6>📈 Export Growth Trend</h6>
-      <canvas id="lineChart"></canvas>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card p-3">
-      <h6>🔥 Block-wise Stress Heat Map</h6>
-      <div class="heatmap">
-        <div class="heat high">Berhampore</div>
-        <div class="heat medium">Jiaganj</div>
-        <div class="heat low">Domkal</div>
-        <div class="heat high">Kandi</div>
-        <div class="heat medium">Lalgola</div>
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <div class="kpi text-danger">65%</div>
+        <p class="mb-0">Export Share</p>
       </div>
     </div>
   </div>
-</div>
 
-<!-- DISTRICT MAP -->
-<div class="card mt-4 p-3">
-  <h5>🗺️ Murshidabad District – Handloom Clusters</h5>
-  <div class="row">
+  <!-- ================= CHARTS ================= -->
+  <div class="row g-4">
     <div class="col-md-6">
-      <svg viewBox="0 0 300 320" class="w-100">
-        <rect x="110" y="20" width="80" height="60" fill="#dc3545" onclick="showMap('Berhampore')"/>
-        <rect x="40" y="90" width="90" height="60" fill="#fd7e14" onclick="showMap('Jiaganj')"/>
-        <rect x="150" y="100" width="90" height="70" fill="#dc3545" onclick="showMap('Kandi')"/>
-        <rect x="70" y="190" width="80" height="60" fill="#ffc107" onclick="showMap('Domkal')"/>
-        <rect x="160" y="210" width="80" height="60" fill="#fd7e14" onclick="showMap('Lalgola')"/>
-      </svg>
+      <div class="card p-3 chart-box" onclick="openLink()">
+        <h6>Production Share – Product Type</h6>
+        <canvas id="pieChart"></canvas>
+      </div>
     </div>
+
     <div class="col-md-6">
-      <div id="mapDetail" class="alert alert-info">
-        Click on a block to view cluster insight
+      <div class="card p-3 chart-box" onclick="openLink()">
+        <h6>Credit vs Production Growth</h6>
+        <canvas id="barChart"></canvas>
       </div>
     </div>
   </div>
-</div>
 
-<!-- IMAGES -->
-<div class="card mt-4 p-3">
-  <h5>🧵 Handloom & Silk Heritage</h5>
-  <div class="row g-3">
-    <div class="col-md-4">
-      <img src="https://images.unsplash.com/photo-1581091870627-3b1c1b12f7c5" class="img-fluid rounded">
-    </div>
-    <div class="col-md-4">
-      <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae" class="img-fluid rounded">
-    </div>
-    <div class="col-md-4">
-      <img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6" class="img-fluid rounded">
+  <!-- ================= HEATMAP STYLE ================= -->
+  <div class="card p-3 mt-4">
+    <h6>Cluster Intensity (Heat Representation)</h6>
+    <canvas id="heatChart"></canvas>
+  </div>
+
+  <!-- ================= DISTRICT MAP ================= -->
+  <div class="card p-3 mt-4">
+    <h6>📍 Murshidabad District Industrial Map</h6>
+    <img src="images/murshidabad-map.png" class="img-fluid rounded" alt="Murshidabad District Map">
+    <small class="text-muted">Major silk and handloom clusters highlighted</small>
+  </div>
+
+  <!-- ================= HANDLOOM IMAGES ================= -->
+  <div class="card p-3 mt-4">
+    <h6>🧵 Traditional Handloom Weaving Process</h6>
+    <p class="text-muted">Visual focus on craftsmanship (faces intentionally excluded)</p>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <img src="images/handloom1.webp" class="img-fluid rounded shadow">
+      </div>
+      <div class="col-md-6">
+        <img src="images/handloom2.webp" class="img-fluid rounded shadow">
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- ================= COMMENTS ================= -->
+  <div class="card p-3 mt-4">
+    <h6>📊 Analytical Comments</h6>
+    <ul>
+      <li>Murshidabad contributes significantly to West Bengal’s silk exports.</li>
+      <li>Credit penetration directly impacts loom productivity.</li>
+      <li>Cluster-based policy intervention can improve artisan income.</li>
+      <li>Technology adoption remains moderate but promising.</li>
+    </ul>
+  </div>
 
 </div>
 
+<footer class="text-center">
+  District MIS Dashboard | PGDM-RBA Academic Project
+</footer>
+
+<!-- ================= JS ================= -->
 <script>
-// SEARCH
-searchBox.onkeyup = () => {
-  let v = searchBox.value.toLowerCase();
-  document.querySelectorAll(".kpi-item").forEach(i=>{
-    i.style.display = i.dataset.name.toLowerCase().includes(v) ? "block":"none";
-  });
-};
-
-// KPI CLICK
-document.querySelectorAll(".kpi-card").forEach(c=>{
-  c.onclick = ()=> {
-    document.querySelectorAll(".detail-section").forEach(d=>d.style.display="none");
-  };
-});
-
-// MAP
-function showMap(area){
-  const info = {
-    Berhampore:"Major trading hub; needs loom modernization.",
-    Jiaganj:"Traditional weaving cluster; skill retention needed.",
-    Kandi:"High migration; urgent credit support required.",
-    Domkal:"Stable cluster; market linkage needed.",
-    Lalgola:"Border trade potential; branding required."
-  };
-  mapDetail.innerHTML = "<b>"+area+"</b><br>"+info[area];
+function openLink() {
+  window.open("https://wb.gov.in", "_blank");
 }
 
-// CHARTS
-new Chart(barChart,{type:"bar",data:{labels:["Production","Loom","Credit","Export"],datasets:[{data:[94,72,68,8.2]}]}});
-new Chart(pieChart,{type:"pie",data:{labels:["Silk Samagra","ODOP","Bhabishyat","Subsidy"],datasets:[{data:[40,25,20,15]}]}});
-new Chart(lineChart,{type:"line",data:{labels:["2019","2020","2021","2022","2023"],datasets:[{data:[3.2,4.1,5.6,6.9,8.2],tension:0.3}]}});
+// Pie Chart
+new Chart(document.getElementById('pieChart'), {
+  type: 'pie',
+  data: {
+    labels: ['Silk Sarees', 'Dress Materials', 'Scarves', 'Others'],
+    datasets: [{
+      data: [45, 25, 20, 10],
+      backgroundColor: ['#0d6efd', '#198754', '#ffc107', '#dc3545']
+    }]
+  }
+});
+
+// Bar Chart
+new Chart(document.getElementById('barChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2019', '2020', '2021', '2022', '2023'],
+    datasets: [{
+      label: 'Production Index',
+      data: [65, 70, 75, 85, 95],
+      backgroundColor: '#0d6efd'
+    }]
+  }
+});
+
+// Heatmap-style chart
+new Chart(document.getElementById('heatChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Berhampore', 'Islampur', 'Domkal', 'Kandi', 'Lalgola'],
+    datasets: [{
+      label: 'Cluster Intensity',
+      data: [90, 70, 80, 60, 85],
+      backgroundColor: '#dc3545'
+    }]
+  }
+});
 </script>
 
 </body>
